@@ -9,6 +9,7 @@
 /* Header */
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__link/header__link.css);
 /* Profile */
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__avatar-button/profile__avatar-button.css);
@@ -53,3 +54,10 @@
 /* Footer */
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);
+/* Authentication */
+@import url(./blocks/authentication/authentication.css);
+@import url(./blocks/authentication/__title/authentication__title.css);
+@import url(./blocks/authentication/__form-field/authentication__form-field.css);
+@import url(./blocks/authentication/__input/authentication__input.css);
+@import url(./blocks/authentication/__button/authentication__button.css);
+@import url(./blocks/authentication/__link/authentication__link.css);
