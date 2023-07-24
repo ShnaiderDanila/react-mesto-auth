@@ -3,4 +3,9 @@
   color: #fff;
   font-size: 18px;
   line-height: 22px;
+  transition: opacity 0.3s ease;
+}
+
+.header__link:hover {
+  opacity: 0.6;
 }
