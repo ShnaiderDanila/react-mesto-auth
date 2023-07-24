@@ -1,0 +1,17 @@
+.authentication__button {
+  width: 100%;
+  margin: 186px 0 0 0;
+  padding: 0;
+  height: 50px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: #fff;
+  font-size: 18px;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+.authentication__button:hover {
+  opacity: 0.85;
+}
