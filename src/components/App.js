@@ -14,6 +14,7 @@ import { Routes, Route } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
+import InfoTooltip from './InfoTooltip';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(true);
 
   // Стейт-переменная загрузки попапа
   const [isLoading, setIsLoading] = useState(false);
@@ -78,6 +80,7 @@ function App() {
     isAddPlacePopupOpen && setIsAddPlacePopupOpen(false);
     isEditAvatarPopupOpen && setIsEditAvatarPopupOpen(false);
     isConfirmPopupOpen && setIsConfirmPopupOpen(false);
+    isInfoTooltipOpen && setIsInfoTooltipOpen(false);
     selectedCard && setSelectedCard({ name: '', link: '' });
   }
 
@@ -212,6 +215,10 @@ function App() {
           isLoading={isLoading}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+        />
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closeAllPopups}
         />
       </div>
     </CurrentUserContext.Provider>

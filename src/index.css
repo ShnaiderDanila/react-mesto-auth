@@ -61,3 +61,6 @@
 @import url(./blocks/authentication/__input/authentication__input.css);
 @import url(./blocks/authentication/__button/authentication__button.css);
 @import url(./blocks/authentication/__link/authentication__link.css);
+/* Info-Tooltip */
+@import url(./blocks/info-tooltip/info-tooltip.css);
+@import url(./blocks/info-tooltip/__title/info-tooltip__title.css);
