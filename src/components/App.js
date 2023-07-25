@@ -40,7 +40,7 @@ function App() {
   // Стейт-переменная карточек на странице
   const [cards, setCards] = useState([]);
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   // Получение с сервера данных пользователя страницы и начальных карточек 
   useEffect(() => {
