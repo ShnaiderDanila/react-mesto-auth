@@ -13,6 +13,7 @@ import CurrentUserContext from "../contexts/CurrentUserContext.js";
 import { Routes, Route } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
 
@@ -36,6 +37,8 @@ function App() {
 
   // Стейт-переменная карточек на странице
   const [cards, setCards] = useState([]);
+
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // Получение с сервера данных пользователя страницы и начальных карточек 
   useEffect(() => {
@@ -163,19 +166,19 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="wrapper">
         <Header />
-
         <Routes>
-          <Route path="/" element={
-            <Main
+          <Route path="/" element=
+            {<ProtectedRoute
+              element={Main}
+              loggedIn={loggedIn}
               cards={cards}
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
               onEditAvatar={handleEditAvatarClick}
               onCardClick={handleCardClick}
               onCardLike={handleCardLike}
-              onTrashClick={handleTrashClick}
-            />
-          } />
+              onTrashClick={handleTrashClick} />}
+          />
           <Route path="/sign-up" element={<Register />} />
           <Route path="/sign-in" element={<Login />} />
         </Routes>
