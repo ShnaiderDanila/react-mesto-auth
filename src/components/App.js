@@ -10,6 +10,9 @@ import ImagePopup from "./ImagePopup";
 import ConfirmPopup from './ConfirmPopup'
 import { api } from "../utils/Api.js";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
+import { Routes, Route } from 'react-router-dom';
+import Register from './Register';
+import Login from './Login';
 
 function App() {
 
@@ -160,15 +163,22 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="wrapper">
         <Header />
-        <Main
-          cards={cards}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onTrashClick={handleTrashClick}
-        />
+
+        <Routes>
+          <Route path="/" element={
+            <Main
+              cards={cards}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onEditAvatar={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onTrashClick={handleTrashClick}
+            />
+          } />
+          <Route path="/sign-up" element={<Register />} />
+          <Route path="/sign-in" element={<Login />} />
+        </Routes>
         <Footer />
         <PopupWithValidation
           component={EditProfilePopup}
