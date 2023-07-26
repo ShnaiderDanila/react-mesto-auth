@@ -13,7 +13,7 @@
 
 @media (max-width: 565px) {
   .info-tooltip {
-    max-width: 282px;
-    padding: 25px;
+    max-width: 280px;
+    padding: 50px 18px;
   }
 }
