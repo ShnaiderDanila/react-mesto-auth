@@ -1,0 +1,12 @@
+.header__menu-container {
+  padding: 40px 0;
+  text-align: center;
+  display: none;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+}
+
+@media (max-width: 565px) {
+  .header__menu-container {
+    display: block;
+  }
+}

@@ -1,0 +1,5 @@
+.header__menu-button_is-active {
+  background-image: url(../../../../images/close-icon.svg);
+  min-width: 20px;
+  min-height: 20px;
+}

@@ -40,7 +40,7 @@ function App() {
   // Стейт-переменная карточек на странице
   const [cards, setCards] = useState([]);
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // Получение с сервера данных пользователя страницы и начальных карточек 
   useEffect(() => {
@@ -168,7 +168,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="wrapper">
-        <Header />
+        <Header loggedIn={loggedIn}/>
         <Routes>
           <Route path="/" element=
             {<ProtectedRoute

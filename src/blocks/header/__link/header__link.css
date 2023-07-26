@@ -4,8 +4,22 @@
   font-size: 18px;
   line-height: 22px;
   transition: opacity 0.3s ease;
+  padding: 6px 0 0 0;
 }
 
 .header__link:hover {
   opacity: 0.6;
+}
+
+@media (max-width: 982px) {
+  .header__link {
+    padding: 6px 30px 0 0;
+  }
+}
+
+@media (max-width: 425px) {
+  .header__link {
+    font-size: 14px;
+    line-height: normal;
+  }
 }

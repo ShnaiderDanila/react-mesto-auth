@@ -3,3 +3,9 @@
   font-size: 18px;
   font-weight: 500;
 }
+
+@media (max-width: 565px) {
+  .header__email {
+    margin: 0 0 18px 0;
+  }
+}
