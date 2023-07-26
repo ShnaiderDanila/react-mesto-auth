@@ -24,7 +24,7 @@ function Register() {
             required />
         </label>
         <button className="authentication__button" type="submit">Зарегистрироваться</button>
-        <p>Уже зарегистрированы? <Link className="authentication__link" to="/sign-in">Войти</Link></p>
+        <p className="authentication__text">Уже зарегистрированы? <Link className="authentication__link" to="/sign-in">Войти</Link></p>
       </form>
     </section>
   )

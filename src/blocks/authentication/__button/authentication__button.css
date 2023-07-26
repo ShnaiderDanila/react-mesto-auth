@@ -15,3 +15,12 @@
 .authentication__button:hover {
   opacity: 0.85;
 }
+
+
+@media (max-width: 425px) {
+  .authentication__button {
+    height: 46px;
+    margin: 143px 0 0 0;
+    font-size: 16px;
+  }
+}

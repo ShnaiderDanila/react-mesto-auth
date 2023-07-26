@@ -3,3 +3,10 @@
   font-size: 24px;
   font-weight: 900;
 }
+
+@media (max-width: 425px) {
+  .authentication__title {
+    margin: 0 0 40px 0;
+    font-size: 20px;
+  }
+}

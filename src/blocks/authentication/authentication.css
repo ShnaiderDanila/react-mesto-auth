@@ -4,4 +4,13 @@
   max-width: 358px;
   height: 100%;
   text-align: center;
+  box-sizing: border-box;
 }
+
+@media (max-width: 425px) {
+  .authentication {
+    padding: 40px 0 77px 0;
+    max-width: 260px;
+  }
+}
+
