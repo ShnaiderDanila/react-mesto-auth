@@ -15,31 +15,35 @@ function Login({setLoggedIn, setIsInfoTooltipOpen, setInfoTooltipSuccess}) {
     setFormValue({ ...formValue, [evt.target.name]: evt.target.value })
   }
 
-  function handleSumbit(evt) {
+  // Функция обработки входа
+  function handleLogin(evt) {
     evt.preventDefault();
     const { email, password } = formValue;
     authApi.authorize(email, password)
       .then((res) => {
         if(res.token) {
+          // Очищаем инпуты
           setFormValue({
             email: '',
             password: ''
           })
           setLoggedIn(true);
+          // Перенаправляем пользователя на главную страницу сайта
           navigate('/', {replace: true});
         }
       })
       .catch((err) => {
-        setIsInfoTooltipOpen(true);
-        setInfoTooltipSuccess(false);
+        // При получении ошибки от сервера, выводим её в консоль и открываем попап с ошибкой 
         console.error(`Ошибка: ${err}`);
+        setInfoTooltipSuccess(false);
+        setIsInfoTooltipOpen(true);
       });
   }
 
   return (
     <section className="authentication">
       <h3 className="authentication__title">Вход</h3>
-      <form className="authentication__form" onSubmit={handleSumbit}>
+      <form className="authentication__form" onSubmit={handleLogin}>
         <label className="authentication__form-field">
           <input
             onChange={handleChange}

@@ -17,7 +17,6 @@
 @import url(./blocks/header/__email/header__email.css);
 @import url(./blocks/header/__menu-button/header__menu-button.css);
 @import url(./blocks/header/__menu-button/_is-active/header__menu-button_is-active.css);
-
 /* Profile */
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__avatar-button/profile__avatar-button.css);

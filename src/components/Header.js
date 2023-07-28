@@ -1,22 +1,23 @@
-import logo from '../images/logo.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import logo from '../images/logo.svg';
 
 function Header({ loggedIn, setLoggedIn, userEmail }) {
- 
+
   const location = useLocation();
   const [headerMenuIsActive, setHeaderMenuIsActive] = useState(false);
   const navigate = useNavigate();
 
+  // Функция открытия и закрытия бургер-меню
   function handleHeaderMenu() {
     setHeaderMenuIsActive(!headerMenuIsActive);
   }
 
-  function signOut() {
+  // Функция обработки выхода
+  function handleSignOut() {
     localStorage.removeItem('token');
     setLoggedIn(false);
-    navigate('/sign-in', {replace: true});
+    navigate('/sign-in', { replace: true });
   }
 
   return (
@@ -25,7 +26,10 @@ function Header({ loggedIn, setLoggedIn, userEmail }) {
         headerMenuIsActive && location.pathname === "/" &&
         <div className='header__menu-container'>
           <p className="header__email">{userEmail}</p>
-          <button onClick={signOut} className='header__sign-out' type="button">Выйти</button>
+          <button
+            onClick={handleSignOut}
+            className='header__sign-out'
+            type="button">Выйти</button>
         </div>
       }
       <div className='header__container'>
@@ -37,9 +41,15 @@ function Header({ loggedIn, setLoggedIn, userEmail }) {
                 <>
                   <nav className='header__nav'>
                     <p className="header__email">{userEmail}</p>
-                    <button onClick={signOut} className='header__sign-out' type="button">Выйти</button>
+                    <button
+                      onClick={handleSignOut}
+                      className='header__sign-out'
+                      type="button">Выйти</button>
                   </nav>
-                  <button onClick={handleHeaderMenu} type='button' className={`header__menu-button ${headerMenuIsActive && 'header__menu-button_is-active'}`} />
+                  <button
+                    onClick={handleHeaderMenu}
+                    type='button'
+                    className={`header__menu-button ${headerMenuIsActive && 'header__menu-button_is-active'}`} />
                 </>
               }
             </>

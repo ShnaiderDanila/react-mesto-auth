@@ -15,26 +15,31 @@ function Register({ setIsInfoTooltipOpen, setInfoTooltipSuccess }) {
     setFormValue({ ...formValue, [evt.target.name]: evt.target.value })
   }
 
-  function handleSumbit(evt) {
+  function handleRegister(evt) {
     evt.preventDefault();
     const { email, password } = formValue;
     authApi.register(email, password)
       .then(() => {
+         // При получении успешного ответа от сервера, открываем попап с оповещением
         setInfoTooltipSuccess(true);
         setIsInfoTooltipOpen(true);
+        // Перенаправляем пользователя на страницу входа
         navigate('/sign-in', { replace: true });
       })
       .catch((err) => {
-        setInfoTooltipSuccess(false);
-        setIsInfoTooltipOpen(true);
+        // При получении ошибки от сервера, выводим её в консоль и открываем попап с ошибкой 
         console.error(`Ошибка: ${err}`);
+        setInfoTooltipSuccess(false);
+        setTimeout(() => {
+          setIsInfoTooltipOpen(true);
+        }, 500)
       });
   }
 
   return (
     <section className="authentication">
       <h3 className="authentication__title">Регистрация</h3>
-      <form className="authentication__form" onSubmit={handleSumbit}>
+      <form className="authentication__form" onSubmit={handleRegister}>
         <label className="authentication__form-field">
           <input
             onChange={handleChange}

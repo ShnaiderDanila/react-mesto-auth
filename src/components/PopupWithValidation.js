@@ -31,7 +31,6 @@ function PopupWithValidation({ component: Component, ...props }) {
       resetValidation={resetValidation}
     />
   )
-
 };
 
 export default PopupWithValidation

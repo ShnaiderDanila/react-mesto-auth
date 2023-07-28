@@ -1,6 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { api, authApi } from "../utils/Api.js";
 import Header from "./Header";
 import Main from "./Main";
+import Register from './Register';
+import Login from './Login';
 import Footer from "./Footer";
 import PopupWithValidation from './PopupWithValidation';
 import EditProfilePopup from './EditProfilePopup';
@@ -8,13 +12,9 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from "./ImagePopup";
 import ConfirmPopup from './ConfirmPopup'
-import { api, authApi } from "../utils/Api.js";
-import CurrentUserContext from "../contexts/CurrentUserContext.js";
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import Register from './Register';
-import Login from './Login';
-import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
+import CurrentUserContext from "../contexts/CurrentUserContext.js";
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
 
@@ -24,6 +24,9 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+
+  // Стейт-переменная состояния попапа infoTooltip
+  const [infoTooltipSuccess, setInfoTooltipSuccess] = useState(false);
 
   // Стейт-переменная загрузки попапа
   const [isLoading, setIsLoading] = useState(false);
@@ -40,16 +43,15 @@ function App() {
   // Стейт-переменная текущего email-адреса пользователя страницы
   const [userEmail, setUserEmail] = useState('');
 
-  const [infoTooltipSuccess, setInfoTooltipSuccess] = useState(false);
-
-
   // Стейт-переменная карточек на странице
   const [cards, setCards] = useState([]);
 
+  // Стейт-переменная авторизации пользователя
   const [loggedIn, setLoggedIn] = useState(false);
 
   const navigate = useNavigate();
 
+  // Функция проверки токена при загрузки страницы
   const tokenCheck = useCallback(() => {
     if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
@@ -57,8 +59,8 @@ function App() {
         authApi.checkToken(token)
           .then((res) => {
             if (res) {
-              setUserEmail(res.data.email);
               setLoggedIn(true);
+              setUserEmail(res.data.email);
               navigate('/', { replace: true });
             }
           })
@@ -67,8 +69,12 @@ function App() {
           });
       }
     }
-  }, [setLoggedIn, setUserEmail, navigate])
+  }, [navigate])
 
+  // Проверка токена
+  useEffect(() => {
+    tokenCheck();
+  }, [tokenCheck])
 
   // Получение с сервера данных пользователя страницы и начальных карточек 
   useEffect(() => {
@@ -80,9 +86,7 @@ function App() {
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
       });
-    tokenCheck();
-  }, [tokenCheck])
-
+  }, [])
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -203,7 +207,7 @@ function App() {
           setLoggedIn={setLoggedIn}
           userEmail={userEmail} />
         <Routes>
-          <Route path="*" element=
+          <Route path="/" element=
             {<ProtectedRoute
               element={Main}
               loggedIn={loggedIn}
@@ -213,8 +217,7 @@ function App() {
               onEditAvatar={handleEditAvatarClick}
               onCardClick={handleCardClick}
               onCardLike={handleCardLike}
-              onTrashClick={handleTrashClick} />}
-          />
+              onTrashClick={handleTrashClick} />} />
           <Route path="/sign-up" element={<Register
             setIsInfoTooltipOpen={setIsInfoTooltipOpen}
             setInfoTooltipSuccess={setInfoTooltipSuccess} />} />

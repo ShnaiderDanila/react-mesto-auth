@@ -1,12 +1,15 @@
-import registerSuccess from '../images/icon-success.svg';  // Импортируем изображение успешной регистрации
-import registerFail from '../images/icon-fail.svg';
+// Импортируем иконки
+import iconSuccess from '../images/icon-success.svg';
+import iconFail from '../images/icon-fail.svg';
 
-function InfoTooltip({ isOpen, onClose, infoTooltipSuccess}) {
-
+function InfoTooltip({ isOpen, onClose, infoTooltipSuccess }) {
   return (
     <div className={`popup ${isOpen ? 'popup_is-opened' : ''}`}>
       <div className="info-tooltip">
-        <img className="info-tooltip__image" src={`${infoTooltipSuccess ? registerSuccess : registerFail}`} alt='Информационная всплывающая подсказка' />
+        <img
+          className="info-tooltip__image"
+          src={`${infoTooltipSuccess ? iconSuccess : iconFail}`}
+          alt='Информационная всплывающая подсказка' />
         <h3 className="info-tooltip__title">
           {`${infoTooltipSuccess ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз.'}`}</h3>
         <button onClick={onClose} className="popup__button-close" type="button" />
