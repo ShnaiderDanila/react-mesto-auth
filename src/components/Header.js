@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 
-function Header({ loggedIn }) {
-
+function Header({ loggedIn, userEmail }) {
+ 
   const location = useLocation();
   const [headerMenuIsActive, setHeaderMenuIsActive] = useState(false);
 
@@ -17,7 +17,7 @@ function Header({ loggedIn }) {
       {
         headerMenuIsActive && location.pathname === "/" &&
         <div className='header__menu-container'>
-          <p className="header__email">email@email.com</p>
+          <p className="header__email">{userEmail}</p>
           <Link className="header__link header__link_color_grey" to="/sign-in">Выйти</Link>
         </div>
       }
@@ -29,7 +29,7 @@ function Header({ loggedIn }) {
               {location.pathname === "/" &&
                 <>
                   <nav className='header__nav'>
-                    <p className="header__email">email@email.com</p>
+                    <p className="header__email">{userEmail}</p>
                     <Link className="header__link header__link_color_grey" to="/sign-in">Выйти</Link>
                   </nav>
                   <button onClick={handleHeaderMenu} type='button' className={`header__menu-button ${headerMenuIsActive && 'header__menu-button_is-active'}`} />
