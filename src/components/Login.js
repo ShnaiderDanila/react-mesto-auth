@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { authApi } from '../utils/Api';
 
-function Login({handleLogin}) {
+function Login({setLoggedIn}) {
 
   const [formValue, setFormValue] = useState({
     email: '',
@@ -25,7 +25,7 @@ function Login({handleLogin}) {
             email: '',
             password: ''
           })
-          handleLogin();
+          setLoggedIn(true);
           navigate('/', {replace: true});
         }
       })

@@ -192,10 +192,6 @@ function App() {
       });
   }
 
-  function handleLogin() {
-    setLoggedIn(true)
-  }
-
   return (
     <div className="wrapper">
       <CurrentUserContext.Provider value={currentUser}>
@@ -214,7 +210,7 @@ function App() {
               onTrashClick={handleTrashClick} />}
           />
           <Route path="/sign-up" element={<Register />} />
-          <Route path="/sign-in" element={<Login handleLogin={handleLogin} />} />
+          <Route path="/sign-in" element={<Login setLoggedIn={setLoggedIn} />} />
         </Routes>
         <Footer />
         <PopupWithValidation
