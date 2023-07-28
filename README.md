@@ -1,8 +1,8 @@
-# [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&pause=1000&width=435&lines=Проект:+"Mesto-React")](https://git.io/typing-svg)
+# [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&pause=1000&width=435&lines=Проект:+"Mesto-React-Auth")](https://git.io/typing-svg)
 Создан в рамках учебы в [Яндекс.Практикум](https://practicum.yandex.ru/) на факультете ["Веб-разработчик"](https://practicum.yandex.ru/web/)
 
 ## Описание проекта:
-"Mesto" - это интерактивная страница, где пользователи могут делиться фотографиями. Она создана в рамках прохождения 4-11 спринтов курса. Данная работа переведена на фреймворк React. 
+"Mesto" - это интерактивная страница, где пользователи могут делиться фотографиями. Она создана в рамках прохождения 4-15 спринтов курса. Данная работа переведена на фреймворк React. 
 [Ссылка на проект - GitHub Pages](https://shnd3r.github.io/mesto-react/ "Сайт проекта Mesto") 
 
 ## Функционал:
@@ -51,6 +51,7 @@ Cоздание сервера на Nodejs
 - [Макет №2](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?type=design&node-id=0-1&t=7NtishAeRIUPj7SZ-0)
 - [Макет №3](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?type=design&node-id=0-1&t=mjoomtzG4YVpYRpI-0)
 - [Макет №4](https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript.-Sprint-9?type=design&node-id=0-1&t=EzdD97fqcu0FdFyF-0)
+- [Макет №5](https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/Sprint-14-RU?node-id=0%3A1.)
 
 ## Чеклисты:
 - [Чеклист №1](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-4.pdf)
