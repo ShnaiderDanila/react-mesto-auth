@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -8,9 +8,9 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from "./ImagePopup";
 import ConfirmPopup from './ConfirmPopup'
-import { api } from "../utils/Api.js";
+import { api, authApi } from "../utils/Api.js";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
@@ -37,10 +37,35 @@ function App() {
   // Стейт-переменная текущего пользователя страницы
   const [currentUser, setCurrentUser] = useState({});
 
+  // Стейт-переменная текущего email-адреса пользователя страницы
+  const [userEmail, setUserEmail] = useState('');
+
   // Стейт-переменная карточек на странице
   const [cards, setCards] = useState([]);
 
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const navigate = useNavigate();
+
+  const tokenCheck = useCallback(() => {
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        authApi.checkToken(token)
+          .then((res) => {
+            if (res) {
+              setUserEmail(res.data.email);
+              setLoggedIn(true);
+              navigate('/', { replace: true });
+            }
+          })
+          .catch((err) => {
+            console.error(`Ошибка: ${err}`);
+          });
+      }
+    }
+  }, [setLoggedIn, setUserEmail, navigate])
+
 
   // Получение с сервера данных пользователя страницы и начальных карточек 
   useEffect(() => {
@@ -52,7 +77,9 @@ function App() {
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
       });
-  }, [])
+      tokenCheck();
+  }, [tokenCheck])
+
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -165,12 +192,16 @@ function App() {
       });
   }
 
+  function handleLogin() {
+    setLoggedIn(true)
+  }
+
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <div className="wrapper">
-        <Header loggedIn={loggedIn}/>
+    <div className="wrapper">
+      <CurrentUserContext.Provider value={currentUser}>
+        <Header loggedIn={loggedIn} userEmail={userEmail} />
         <Routes>
-          <Route path="/" element=
+          <Route path="*" element=
             {<ProtectedRoute
               element={Main}
               loggedIn={loggedIn}
@@ -183,7 +214,7 @@ function App() {
               onTrashClick={handleTrashClick} />}
           />
           <Route path="/sign-up" element={<Register />} />
-          <Route path="/sign-in" element={<Login />} />
+          <Route path="/sign-in" element={<Login handleLogin={handleLogin} />} />
         </Routes>
         <Footer />
         <PopupWithValidation
@@ -220,8 +251,9 @@ function App() {
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
         />
-      </div>
-    </CurrentUserContext.Provider>
+      </CurrentUserContext.Provider>
+    </div>
+
   )
 };
 
