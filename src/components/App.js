@@ -195,7 +195,10 @@ function App() {
   return (
     <div className="wrapper">
       <CurrentUserContext.Provider value={currentUser}>
-        <Header loggedIn={loggedIn} userEmail={userEmail} />
+        <Header 
+        loggedIn={loggedIn} 
+        setLoggedIn={setLoggedIn} 
+        userEmail={userEmail} />
         <Routes>
           <Route path="*" element=
             {<ProtectedRoute

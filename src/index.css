@@ -13,7 +13,7 @@
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/header/__nav/header__nav.css);
 @import url(./blocks/header/__link/header__link.css);
-@import url(./blocks/header/__link/_color/header__link_color_grey.css);
+@import url(./blocks/header/__sign-out/header__sign-out.css);
 @import url(./blocks/header/__email/header__email.css);
 @import url(./blocks/header/__menu-button/header__menu-button.css);
 @import url(./blocks/header/__menu-button/_is-active/header__menu-button_is-active.css);
