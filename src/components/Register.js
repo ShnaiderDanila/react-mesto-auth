@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { authApi } from '../utils/Api';
 
-function Register() {
+function Register({ setIsInfoTooltipOpen, setInfoTooltipSuccess }) {
 
   const [formValue, setFormValue] = useState({
     email: '',
@@ -20,9 +20,13 @@ function Register() {
     const { email, password } = formValue;
     authApi.register(email, password)
       .then(() => {
-        navigate('/sign-in', {replace: true});
+        setInfoTooltipSuccess(true);
+        setIsInfoTooltipOpen(true);
+        navigate('/sign-in', { replace: true });
       })
       .catch((err) => {
+        setInfoTooltipSuccess(false);
+        setIsInfoTooltipOpen(true);
         console.error(`Ошибка: ${err}`);
       });
   }

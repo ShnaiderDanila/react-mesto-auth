@@ -23,7 +23,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(true);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
 
   // Стейт-переменная загрузки попапа
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +39,9 @@ function App() {
 
   // Стейт-переменная текущего email-адреса пользователя страницы
   const [userEmail, setUserEmail] = useState('');
+
+  const [infoTooltipSuccess, setInfoTooltipSuccess] = useState(false);
+
 
   // Стейт-переменная карточек на странице
   const [cards, setCards] = useState([]);
@@ -77,7 +80,7 @@ function App() {
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
       });
-      tokenCheck();
+    tokenCheck();
   }, [tokenCheck])
 
 
@@ -195,10 +198,10 @@ function App() {
   return (
     <div className="wrapper">
       <CurrentUserContext.Provider value={currentUser}>
-        <Header 
-        loggedIn={loggedIn} 
-        setLoggedIn={setLoggedIn} 
-        userEmail={userEmail} />
+        <Header
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          userEmail={userEmail} />
         <Routes>
           <Route path="*" element=
             {<ProtectedRoute
@@ -212,8 +215,13 @@ function App() {
               onCardLike={handleCardLike}
               onTrashClick={handleTrashClick} />}
           />
-          <Route path="/sign-up" element={<Register />} />
-          <Route path="/sign-in" element={<Login setLoggedIn={setLoggedIn} />} />
+          <Route path="/sign-up" element={<Register
+            setIsInfoTooltipOpen={setIsInfoTooltipOpen}
+            setInfoTooltipSuccess={setInfoTooltipSuccess} />} />
+          <Route path="/sign-in" element={<Login
+            setLoggedIn={setLoggedIn}
+            setIsInfoTooltipOpen={setIsInfoTooltipOpen}
+            setInfoTooltipSuccess={setInfoTooltipSuccess} />} />
         </Routes>
         <Footer />
         <PopupWithValidation
@@ -249,6 +257,7 @@ function App() {
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
+          infoTooltipSuccess={infoTooltipSuccess}
         />
       </CurrentUserContext.Provider>
     </div>

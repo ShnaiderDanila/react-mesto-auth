@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { authApi } from '../utils/Api';
 
-function Login({setLoggedIn}) {
+function Login({setLoggedIn, setIsInfoTooltipOpen, setInfoTooltipSuccess}) {
 
   const [formValue, setFormValue] = useState({
     email: '',
@@ -30,6 +30,8 @@ function Login({setLoggedIn}) {
         }
       })
       .catch((err) => {
+        setIsInfoTooltipOpen(true);
+        setInfoTooltipSuccess(false);
         console.error(`Ошибка: ${err}`);
       });
   }
