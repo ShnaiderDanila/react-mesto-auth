@@ -4,7 +4,7 @@ class Api {
     this._headers = options.headers;
   }
 
-// Универсальный метод обработки ответа от сервера
+  // Универсальный метод обработки ответа от сервера
   _renderServerResponce(res) {
     if (res.ok) {
       return res.json();
@@ -14,34 +14,34 @@ class Api {
     }
   }
 
-// Универсальный метод запроса с проверкой ответа
+  // Универсальный метод запроса с проверкой ответа
   _request(url, options) {
     return fetch(`${this._baseUrl}/${url}`, options)
-    .then(res => {
-      return this._renderServerResponce(res)
-    })
+      .then(res => {
+        return this._renderServerResponce(res)
+      })
   }
 
-// Метод загрузки информации о пользователе с сервера
+  // Метод загрузки информации о пользователе с сервера
   getUserInfo() {
     return this._request(`users/me`, {
       headers: this._headers
     })
   }
 
-// Метод загрузки карточек с сервера
+  // Метод загрузки карточек с сервера
   getInitialCards() {
     return this._request(`cards`, {
       headers: this._headers
     })
   }
 
-// Метод получения общей информации (метода 1 и метода 2)
+  // Метод получения общей информации (метода 1 и метода 2)
   getAppInfo() {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
-// Метод редактирования профиля на сервере
+  // Метод редактирования профиля на сервере
   editProfile(name, about) {
     return this._request(`users/me`, {
       method: 'PATCH',
@@ -53,7 +53,7 @@ class Api {
     })
   }
 
-// Метод добавления новой карточки на сервер
+  // Метод добавления новой карточки на сервер
   addCard(name, link) {
     return this._request(`cards`, {
       method: 'POST',
@@ -64,7 +64,6 @@ class Api {
       })
     })
   }
-  
 
   // Метод удаления карточки с сервера
   deleteCard(cardId) {
@@ -83,7 +82,6 @@ class Api {
     }
   }
 
-
   // Метод постановки лайка на сервере
   setLike(cardId) {
     return this._request(`cards/${cardId}/likes`, {
@@ -93,7 +91,7 @@ class Api {
   }
 
   // Метод снятия лайка на сервере
-    removeLike(cardId) {
+  removeLike(cardId) {
     return this._request(`cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: this._headers,
@@ -110,6 +108,44 @@ class Api {
       })
     })
   }
+
+  register(email, password) {
+    return this._request(`signup`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        password: password,
+        email: email,
+      }),
+    })
+  }
+
+  authorize(email, password) {
+    return this._request(`signin`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        password: password,
+        email: email,
+      }),
+    })
+      .then((res) => {
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+          return res
+        }
+      })
+  }
+
+  checkToken(token) {
+    return this._request(`users/me`, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      } 
+    })
+  }
 }
 
 const api = new Api({
@@ -120,6 +156,13 @@ const api = new Api({
   }
 });
 
-export { api };
+const authApi = new Api({
+  baseUrl: 'https://auth.nomoreparties.co',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+export { api, authApi };
 
 
