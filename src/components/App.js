@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { api, authApi } from "../utils/api.js";
 import Header from "./Header";
 import Main from "./Main";
@@ -207,6 +207,7 @@ function App() {
           setLoggedIn={setLoggedIn}
           userEmail={userEmail} />
         <Routes>
+          <Route path="*" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/sign-in" replace />} />
           <Route path="/" element=
             {<ProtectedRoute
               element={Main}
