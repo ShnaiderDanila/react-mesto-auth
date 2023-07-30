@@ -51,7 +51,9 @@ function App() {
 
   const navigate = useNavigate();
 
-  // Функция проверки токена при загрузки страницы
+  /**
+   * Функция проверки токена при загрузки страницы
+   */
   const tokenCheck = useCallback(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -118,6 +120,10 @@ function App() {
     selectedCard && setSelectedCard({ name: '', link: '' });
   }
 
+  /**
+   * Функция обработки лайка карточки
+   * @param {object} card карточка в виде объекта с сервера
+   */
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
