@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { api, authApi } from "../utils/Api.js";
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { api, authApi } from "../utils/api.js";
 import Header from "./Header";
 import Main from "./Main";
 import Register from './Register';
@@ -53,21 +53,19 @@ function App() {
 
   // Функция проверки токена при загрузки страницы
   const tokenCheck = useCallback(() => {
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
-      if (token) {
-        authApi.checkToken(token)
-          .then((res) => {
-            if (res) {
-              setLoggedIn(true);
-              setUserEmail(res.data.email);
-              navigate('/', { replace: true });
-            }
-          })
-          .catch((err) => {
-            console.error(`Ошибка: ${err}`);
-          });
-      }
+    const token = localStorage.getItem('token');
+    if (token) {
+      authApi.checkToken(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setUserEmail(res.data.email);
+            navigate('/', { replace: true });
+          }
+        })
+        .catch((err) => {
+          console.error(`Ошибка: ${err}`);
+        });
     }
   }, [navigate])
 
@@ -78,15 +76,17 @@ function App() {
 
   // Получение с сервера данных пользователя страницы и начальных карточек 
   useEffect(() => {
-    api.getAppInfo()
-      .then(([initialCards, userInfo]) => {
-        setCurrentUser(userInfo)
-        setCards(initialCards)
-      })
-      .catch((err) => {
-        console.error(`Ошибка: ${err}`);
-      });
-  }, [])
+    if (loggedIn) {
+      api.getAppInfo()
+        .then(([initialCards, userInfo]) => {
+          setCurrentUser(userInfo)
+          setCards(initialCards)
+        })
+        .catch((err) => {
+          console.error(`Ошибка: ${err}`);
+        });
+    }
+  }, [loggedIn])
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -207,6 +207,7 @@ function App() {
           setLoggedIn={setLoggedIn}
           userEmail={userEmail} />
         <Routes>
+          <Route path="*" element={loggedIn ? <Navigate to="/" replace /> : <Navigate to="/sign-in" replace />} />
           <Route path="/" element=
             {<ProtectedRoute
               element={Main}

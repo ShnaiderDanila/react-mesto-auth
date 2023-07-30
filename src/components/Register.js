@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { authApi } from '../utils/Api';
+import { authApi } from '../utils/api';
+import AuthForm from './AuthForm';
 
 function Register({ setIsInfoTooltipOpen, setInfoTooltipSuccess }) {
 
@@ -20,7 +21,7 @@ function Register({ setIsInfoTooltipOpen, setInfoTooltipSuccess }) {
     const { email, password } = formValue;
     authApi.register(email, password)
       .then(() => {
-         // При получении успешного ответа от сервера, открываем попап с оповещением
+        // При получении успешного ответа от сервера, открываем попап с оповещением
         setInfoTooltipSuccess(true);
         setIsInfoTooltipOpen(true);
         // Перенаправляем пользователя на страницу входа
@@ -37,35 +38,14 @@ function Register({ setIsInfoTooltipOpen, setInfoTooltipSuccess }) {
   }
 
   return (
-    <section className="authentication">
-      <h3 className="authentication__title">Регистрация</h3>
-      <form className="authentication__form" onSubmit={handleRegister}>
-        <label className="authentication__form-field">
-          <input
-            onChange={handleChange}
-            value={formValue.email}
-            className="authentication__input"
-            id="email"
-            type="email"
-            name="email"
-            placeholder="Email"
-            required />
-        </label>
-        <label className="authentication__form-field">
-          <input
-            onChange={handleChange}
-            value={formValue.password}
-            className="authentication__input"
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Пароль"
-            required />
-        </label>
-        <button className="authentication__button" type="submit">Зарегистрироваться</button>
-        <p className="authentication__text">Уже зарегистрированы? <Link className="authentication__link" to="/sign-in">Войти</Link></p>
-      </form>
-    </section>
+    <AuthForm
+      authTitle={'Регистрация'}
+      authButtonText={'Зарегистрироваться'}
+      handleSubmit={handleRegister}
+      handleChange={handleChange}
+      formValue={formValue}>
+      <p className="authentication__text">Уже зарегистрированы? <Link className="authentication__link" to="/sign-in">Войти</Link></p>
+    </AuthForm>
   )
 }
 

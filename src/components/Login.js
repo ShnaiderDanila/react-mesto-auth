@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { authApi } from '../utils/Api';
+import { authApi } from '../utils/api';
+import AuthForm from './AuthForm';
 
-function Login({setLoggedIn, setIsInfoTooltipOpen, setInfoTooltipSuccess}) {
+function Login({ setLoggedIn, setIsInfoTooltipOpen, setInfoTooltipSuccess }) {
 
   const [formValue, setFormValue] = useState({
     email: '',
@@ -21,7 +22,7 @@ function Login({setLoggedIn, setIsInfoTooltipOpen, setInfoTooltipSuccess}) {
     const { email, password } = formValue;
     authApi.authorize(email, password)
       .then((res) => {
-        if(res.token) {
+        if (res.token) {
           // Очищаем инпуты
           setFormValue({
             email: '',
@@ -29,7 +30,7 @@ function Login({setLoggedIn, setIsInfoTooltipOpen, setInfoTooltipSuccess}) {
           })
           setLoggedIn(true);
           // Перенаправляем пользователя на главную страницу сайта
-          navigate('/', {replace: true});
+          navigate('/', { replace: true });
         }
       })
       .catch((err) => {
@@ -41,34 +42,12 @@ function Login({setLoggedIn, setIsInfoTooltipOpen, setInfoTooltipSuccess}) {
   }
 
   return (
-    <section className="authentication">
-      <h3 className="authentication__title">Вход</h3>
-      <form className="authentication__form" onSubmit={handleLogin}>
-        <label className="authentication__form-field">
-          <input
-            onChange={handleChange}
-            value={formValue.email}
-            className="authentication__input"
-            id="email"
-            type="email"
-            name="email"
-            placeholder="Email"
-            required />
-        </label>
-        <label className="authentication__form-field">
-          <input
-            onChange={handleChange}
-            value={formValue.password}
-            className="authentication__input"
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Пароль"
-            required />
-        </label>
-        <button className="authentication__button" type="submit">Войти</button>
-      </form>
-    </section>
+    <AuthForm
+      authTitle={'Вход'}
+      authButtonText={'Войти'}
+      handleSubmit={handleLogin}
+      handleChange={handleChange}
+      formValue={formValue} />
   )
 }
 
