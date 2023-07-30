@@ -53,21 +53,19 @@ function App() {
 
   // Функция проверки токена при загрузки страницы
   const tokenCheck = useCallback(() => {
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
-      if (token) {
-        authApi.checkToken(token)
-          .then((res) => {
-            if (res) {
-              setLoggedIn(true);
-              setUserEmail(res.data.email);
-              navigate('/', { replace: true });
-            }
-          })
-          .catch((err) => {
-            console.error(`Ошибка: ${err}`);
-          });
-      }
+    const token = localStorage.getItem('token');
+    if (token) {
+      authApi.checkToken(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setUserEmail(res.data.email);
+            navigate('/', { replace: true });
+          }
+        })
+        .catch((err) => {
+          console.error(`Ошибка: ${err}`);
+        });
     }
   }, [navigate])
 
@@ -78,15 +76,17 @@ function App() {
 
   // Получение с сервера данных пользователя страницы и начальных карточек 
   useEffect(() => {
-    api.getAppInfo()
-      .then(([initialCards, userInfo]) => {
-        setCurrentUser(userInfo)
-        setCards(initialCards)
-      })
-      .catch((err) => {
-        console.error(`Ошибка: ${err}`);
-      });
-  }, [])
+    if (loggedIn) {
+      api.getAppInfo()
+        .then(([initialCards, userInfo]) => {
+          setCurrentUser(userInfo)
+          setCards(initialCards)
+        })
+        .catch((err) => {
+          console.error(`Ошибка: ${err}`);
+        });
+    }
+  }, [loggedIn])
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
