@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { api, authApi } from "../utils/Api.js";
+import { api, authApi } from "../utils/api.js";
 import Header from "./Header";
 import Main from "./Main";
 import Register from './Register';

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { authApi } from '../utils/Api';
+import { authApi } from '../utils/api';
 
 function Login({setLoggedIn, setIsInfoTooltipOpen, setInfoTooltipSuccess}) {
 
