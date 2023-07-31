@@ -123,7 +123,7 @@ function App() {
   /**
    * Функция обработки лайка карточки
    * @param {object} card карточка в виде объекта с сервера
-   */
+  */
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
